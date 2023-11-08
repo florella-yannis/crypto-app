@@ -13,6 +13,11 @@ const TableLine = ({ coin, index }) => {
         }
     };
 
+    const mktCapFormater = (num) => {
+        let newNum = String(num).split("").slice(0, -6);
+        return Number(newNum.join(""));
+    };
+
     return (
         <div className="table-line">
             <div className="infos-container">
@@ -32,6 +37,7 @@ const TableLine = ({ coin, index }) => {
                 </div>
             </div>
             <p>{priceFormater(coin.current_price).toLocaleString() + " $"}</p>
+            <p className="mktcap">{mktCapFormater(coin.market_cap).toLocaleString() + "M$"}</p>
         </div>
     );
 };
