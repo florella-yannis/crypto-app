@@ -1,8 +1,10 @@
-import React from 'react';
-import PercentChange from './PercentChange';
-import StarIcon from './StarIcon';
+import React, { useState } from "react";
+import PercentChange from "./PercentChange";
+import StarIcon from "./StarIcon";
+import CoinChart from "./CoinChart";
 
 const TableLine = ({ coin, index }) => {
+    const [showChart, setShowChart] = useState(false);
 
     const priceFormater = (num) => {
         if (Math.round(num).toString().length < 4) {
@@ -23,23 +25,39 @@ const TableLine = ({ coin, index }) => {
     return (
         <div className="table-line">
             <div className="infos-container">
-                <StarIcon coinId={coin.id}/>
+                <StarIcon coinId={coin.id} />
                 <p> {index + 1}</p>
                 <div className="img">
                     <img src={coin.image} height="20" alt="logo" />
                 </div>
                 <div className="infos">
-                    <div className="chart-img">
+                    <div
+                        className="chart-img"
+                        onMouseEnter={() => setShowChart(true)}
+                        onMouseLeave={() => setShowChart(false)}
+                    >
                         <img src="./assets/chart-icon.svg" alt="chart-icon" />
+                        <div className="chart-container" id={coin.name}>
+                            {showChart && <CoinChart />}
+                        </div>
                     </div>
                     <h4>{coin.name}</h4>
                     <span>- {coin.symbol.toUpperCase()}</span>
-                    <a target="_blank" href={"https://www.coingecko.com/fr/pi%C3%A8ces/" + coin.name.toLowerCase().replaceAll(" ", "-")}>
-                        <img src="./assets/info-icon.svg" alt="info-icon" /></a>
+                    <a
+                        target="_blank"
+                        href={
+                            "https://www.coingecko.com/fr/pi%C3%A8ces/" +
+                            coin.name.toLowerCase().replaceAll(" ", "-")
+                        }
+                    >
+                        <img src="./assets/info-icon.svg" alt="info-icon" />
+                    </a>
                 </div>
             </div>
             <p>{priceFormater(coin.current_price).toLocaleString() + " $"}</p>
-            <p className="mktcap">{mktCapFormater(coin.market_cap).toLocaleString() + "M$"}</p>
+            <p className="mktcap">
+                {mktCapFormater(coin.market_cap).toLocaleString() + "M$"}
+            </p>
             <p className="volume">{coin.total_volume.toLocaleString()} $</p>
             <PercentChange percent={coin.price_change_percentage_1h_in_currency} />
             <PercentChange percent={coin.market_cap_change_percentage_24h} />
@@ -50,7 +68,7 @@ const TableLine = ({ coin, index }) => {
             {coin.ath_change_percentage > -3 ? (
                 <p>ATH !</p>
             ) : (
-            <PercentChange percent={coin.ath_change_percentage} />
+                <PercentChange percent={coin.ath_change_percentage} />
             )}
         </div>
     );
