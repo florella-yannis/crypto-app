@@ -20,9 +20,9 @@ const CoinChart = ({ coinId, coinName }) => {
     useEffect(() => {
         let dataArray = data;
         
-        for(let i = 0; i < dataArray.length; i++) {
-            let price = dataArray.prices[i][1];
-        }
+        // for(let i = 0; i < dataArray.length; i++) {
+        //     let price = dataArray.prices[i][1];
+        // }
         console.log(dataArray);
     }, []);
 
