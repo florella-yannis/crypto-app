@@ -1,9 +1,10 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { data } from '../db.js';
+
 
 const CoinChart = ({ coinId, coinName }) => {
     const [duration, setDuration] = useState(30);
-    const [coinData, setCoinData] = useState();
+    // const [coinData, setCoinData] = useState();
 
     const headerData = [
         [1, "1 jour"],
@@ -17,13 +18,12 @@ const CoinChart = ({ coinId, coinName }) => {
     ];
 
     useEffect(() => {
-        let dataArray = [];
-        axios
-            .get(
-                `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${duration}${duration > 32 ? "&interval=daily" : ""
-                }`
-            )
-            .then((res) => console.log(res.data));
+        let dataArray = data;
+        
+        for(let i = 0; i < dataArray.length; i++) {
+            let price = dataArray.prices[i][1];
+        }
+        console.log(dataArray);
     }, []);
 
     return (
