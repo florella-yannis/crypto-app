@@ -4,6 +4,7 @@ import GlobalChart from './components/GlobalChart';
 import axios from 'axios';
 import Table from './components/Table';
 import ToTop from './components/ToTop';
+import {data} from './db.js'
 
 const App = () => {
 
